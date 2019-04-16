@@ -2,3 +2,5 @@
 .git
 .idea/
 __pycache__
+*.pkl
+logging
