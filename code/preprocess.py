@@ -38,11 +38,11 @@ def load_data(dataset='../resources/dataset/', dic='dictionary'):
 
     # Check if dictionary exists
     if glob.glob(dataset + dic + '.pkl'):
-        print('Dictionary file found!')
+        print('\nDictionary file found!\n')
         [train_x, dev_x, train_y, dev_y, word_to_id, id_to_word, label2id, id2label, sizes] = load_dic(dataset + dic)
 
     else:
-        print('Dictionary file not found!')
+        print('\nDictionary file not found!\n')
 
         files = [f for f in glob.glob(dataset + "*.utf8", recursive=True)]
 
@@ -71,7 +71,7 @@ def load_data(dataset='../resources/dataset/', dic='dictionary'):
                         else:
                             characters[d] = characters[d] + 1
 
-        label2id = {'B': 1, 'I': 2, 'E': 3, 'S': 4}
+        label2id = {'B': 0, 'I': 1, 'E': 2, 'S': 3}
         id2label = {v:k for k,v in label2id.items()}
 
         word_to_id = dict()

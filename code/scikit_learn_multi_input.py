@@ -296,8 +296,8 @@ class KerasClassifier(BaseWrapper):
         loss_name = self.model.loss
         if hasattr(loss_name, '__name__'):
             loss_name = loss_name.__name__
-        if loss_name == 'categorical_crossentropy' and len(y.shape) != 2:
-            y = to_categorical(y)
+        # if loss_name == 'categorical_crossentropy' and len(y.shape) != 2:
+        #     y = to_categorical(y)
 
         outputs = self.model.evaluate(x, y, **kwargs)
         outputs = to_list(outputs)
