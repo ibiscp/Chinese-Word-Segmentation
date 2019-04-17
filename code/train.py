@@ -1,14 +1,8 @@
 import tensorflow.keras as K
 from preprocess import load_data
-# from sklearn.model_selection import GridSearchCV
-# from scikit_learn_multi_input import KerasClassifier
-# from sklearn.externals import joblib
-# import pickle
-# from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
-# from sklearn.model_selection import ParameterGrid
 from gridSearch import *
 import warnings
-# warnings.filterwarnings('ignore')
+warnings.filterwarnings('ignore')
 
 # Just disables the warning, doesn't enable AVX/FMA
 import os
@@ -58,36 +52,3 @@ cbk = K.callbacks.TensorBoard("../resources/logging/keras_model")
 grid.fit(train_x, train_y, dev_x, dev_y, callbacks=[cbk])
 
 grid.summary()
-
-# # Define model
-# model = KerasClassifier(build_fn=keras_model, vocab_size=vocabulary_size, sentence_size=sentenceSize, verbose=1)
-
-
-# # param_grid = dict(mergeMode=merge)
-# # grid = GridSearchCV(estimator=model, param_grid=param_grid, n_jobs=None)
-#
-#
-#
-# # Train
-# print("\nStarting training...")
-# cbk = K.callbacks.TensorBoard("../resources/logging/keras_model")
-# grid_result = grid.fit(train_x, train_y, validation_data=(dev_x, dev_y), callbacks=[cbk])
-# # grid_result = grid.fit(train_x, train_y)#, batch_size=32, epochs=1, shuffle=True, validation_data=(dev_x, dev_y), callbacks=[cbk])
-#
-# # Summarize results
-# print("\nBest: %f using %s" % (grid_result.best_score_, grid_result.best_params_))
-# means = grid_result.cv_results_['mean_test_score']
-# stds = grid_result.cv_results_['std_test_score']
-# params = grid_result.cv_results_['params']
-# for mean, stdev, param in zip(means, stds, params):
-#     print("%f (%f) with: %r" % (mean, stdev, param))
-#
-# # Saving best estimator
-# # joblib.dump(grid.best_estimator_, '../resources/estimator.pkl')
-# filename = '../resources/finalized_model.sav'
-# pickle.dump(grid.best_estimator_, open(filename, 'wb'))
-#
-# # load the model from disk
-# loaded_model = pickle.load(open(filename, 'rb'))
-# result = loaded_model.score(dev_x, dev_y)
-# print(result)
