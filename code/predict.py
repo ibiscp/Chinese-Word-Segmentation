@@ -86,4 +86,4 @@ def predict(input_path, output_path, resources_path='../resources/'):
 #     args = parse_args()
 #     predict(args.input_path, args.output_path, args.resources_path)
 
-predict(input_path='../resources/dataset/gold/cityu_test_gold.utf8', output_path='../resources/dataset/predicted/cityu_test_gold.utf8')
+# predict(input_path='../resources/dataset/gold/cityu_test_gold.utf8', output_path='../resources/dataset/predicted/cityu_test_gold.utf8')

@@ -81,7 +81,7 @@ def load_data(path='../resources/', sentence_size=1000):
     else:
         print('\nBuilding dictionary from files')
 
-        files = [f for f in glob.glob(path + 'dataset/gold/' + "*.utf8", recursive=True)]
+        files = [f for f in glob.glob(path + 'dataset/train/' + "*.utf8", recursive=True)]
 
         X_chinese = []
         y = []
