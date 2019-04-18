@@ -70,7 +70,7 @@ def load(name):
 #
 #     return dic
 
-def load_data(path='../resources/', sentence_size=1000):
+def load_data(path='../resources/', sentence_size=630):
 
     # Check if dictionary exists
     if glob.glob(path + 'dictionary.pkl') and glob.glob(path + 'dataset.pkl'):
