@@ -1,4 +1,11 @@
 from argparse import ArgumentParser
+from tensorflow.keras.models import load_model
+from preprocess import load_data
+from preprocess import file2BIES
+from hanziconv import HanziConv
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import numpy as np
+from score import score
 
 
 def parse_args():
@@ -10,7 +17,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def predict(input_path, output_path, resources_path):
+def predict(input_path, output_path, resources_path='../resources/'):
     """
     This is the skeleton of the prediction function.
     The predict function will build your model, load the weights from the checkpoint and write a new file (output_path)
@@ -26,9 +33,57 @@ def predict(input_path, output_path, resources_path):
     :return: None
     """
 
+    model = load_model(resources_path + '/model.h5')
+
+    # model.summary()
+
+    _, dictionary = load_data(path=resources_path)
+    word2id = dictionary['word2id']
+    id2label = dictionary['id2label']
+
+    X_chinese, y, characters, sizes = file2BIES(input_path)
+
+    # Convert sentences to id
+    X = []
+    for sentence in X_chinese:
+        x = []
+        for char in sentence:
+            try:
+                x.append(word2id[char])
+            except:
+                x.append(word2id["<UNK>"])
+        X.append(x)
+
+    # Padding
+    X = pad_sequences(X, truncating='post', padding='post', maxlen=626)
+
+    y_pred = model.predict(X)
+
+    prediction = []
+
+    arg = np.argmax(y_pred, axis=2)
+
+    for i in range(len(arg)):
+        sentence = arg[i]
+        labels = []
+        num_char = np.count_nonzero(X[i])
+        for char in sentence[0:num_char]:
+            labels.append(id2label[char])
+
+        prediction.append(labels)
+
+    score(prediction, y, verbose=True)
+
+    with open(output_path, "w+") as f:
+        for line in prediction:
+            f.write(''.join(str(e) for e in line))
+            f.write('\n')
+
     pass
 
 
-if __name__ == '__main__':
-    args = parse_args()
-    predict(args.input_path, args.output_path, args.resources_path)
+# if __name__ == '__main__':
+#     args = parse_args()
+#     predict(args.input_path, args.output_path, args.resources_path)
+
+predict(input_path='../resources/dataset/gold/cityu_test_gold.utf8', output_path='../resources/dataset/predicted/cityu_test_gold.utf8')

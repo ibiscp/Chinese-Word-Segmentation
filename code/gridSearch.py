@@ -32,16 +32,10 @@ class gridSearch:
                 # Save model
                 print("Saving model")
                 model.save("../resources/model.h5")
-                # model_json = model.to_json()
-                # with open("../resources/model.json", "w") as json_file:
-                #     json_file.write(model_json)
-                #
-                # # serialize weights to HDF5
-                # model.save_weights("../resources/weights.h5")
 
     def summary(self):
         # Summarize results
         print('\nSummary')
         print("Best: %f using %s" % (self.best_score, self.best_params))
         for res in self.results:
-            print("Loss: %f\t%f\twith: %r" % (res['loss'], res['acc'], res['params']))
+            print("Loss: %f - Accuracy: %f - Parameters: %r" % (res['loss'], res['acc'], res['params']))
