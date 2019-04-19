@@ -156,7 +156,7 @@ def load_data(path='../resources/', sentence_size=630):
     y_final = processY(y, label2id, sentence_size)
 
     # Train test split
-    train_x, dev_x, train_y, dev_y = train_test_split(X_final, y_final, test_size=.3)
+    train_x, dev_x, train_y, dev_y = train_test_split(X_final, y_final, test_size=1000)
 
     # Dataset
     dataset = {'train_x': train_x, 'dev_x': dev_x, 'train_y': train_y, 'dev_y': dev_y, 'sizes': sizes}
