@@ -42,3 +42,9 @@ class gridSearch:
         print("Best: %f using %s" % (self.best_score, self.best_params))
         for res in self.results:
             print("Loss: %f - Accuracy: %f - Parameters: %r" % (res['loss'], res['acc'], res['params']))
+
+        with open('../resources/results.txt', "w+") as f:
+            f.write('Summary\n')
+            f.write("Best: %f using %s\n" % (self.best_score, self.best_params))
+            for res in self.results:
+                f.write("Loss: %f - Accuracy: %f - Parameters: %r\n" % (res['loss'], res['acc'], res['params']))

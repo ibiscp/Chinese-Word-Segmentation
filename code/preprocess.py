@@ -146,7 +146,7 @@ def load_data(path='../resources/', sentence_size=630):
         #word2id["<PKT>"] = 3
         index = 2
         for key, value in characters.items():
-            if value > 10:
+            if value > 20:
                 word2id[key] = index
                 index += 1
         id2word = {v:k for k,v in word2id.items()}
@@ -156,7 +156,7 @@ def load_data(path='../resources/', sentence_size=630):
     y_final = processY(y, label2id, sentence_size)
 
     # Train test split
-    train_x, dev_x, train_y, dev_y = train_test_split(X_final, y_final, test_size=.2)
+    train_x, dev_x, train_y, dev_y = train_test_split(X_final, y_final, test_size=.3)
 
     # Dataset
     dataset = {'train_x': train_x, 'dev_x': dev_x, 'train_y': train_y, 'dev_y': dev_y, 'sizes': sizes}
