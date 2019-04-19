@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     # Define the grid search parameters
     batchSize = [32, 64]
-    epochs = [1, 3]
+    epochs = [3, 6]
     mergeMode = ['concat', 'sum']
     param_grid = dict(batchSize=batchSize, epochs=epochs, mergeMode=mergeMode)
 
