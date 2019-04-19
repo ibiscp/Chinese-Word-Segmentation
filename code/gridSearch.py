@@ -1,4 +1,5 @@
 from sklearn.model_selection import ParameterGrid
+import tensorflow.keras as K
 
 class gridSearch:
 
@@ -11,13 +12,15 @@ class gridSearch:
         self.vocab_size = vocab_size
         self.sentence_size = sentence_size
 
-    def fit(self, X, y, X_test, y_test, callbacks):
+    def fit(self, X, y, X_test, y_test):
 
         for g in ParameterGrid(self.param_grid):
             model = self.build_fn(vocab_size=self.vocab_size, sentence_size=self.sentence_size, mergeMode=g['mergeMode'])
 
             print('\nUsing parameters:', g)
-            model.fit(X, y, batch_size=g['batch_size'], epochs=g['epochs'], shuffle=True, callbacks=callbacks)
+            callback_str = '_'.join(['%s-%s' % (key, str(value)) for (key, value) in g.items()])
+            cbk = K.callbacks.TensorBoard("../resources/logging/" + callback_str)
+            model.fit(X, y, batch_size=g['batchSize'], epochs=g['epochs'], shuffle=True, callbacks=[cbk])
 
             print('Evaluating')
             loss, acc = model.evaluate(X_test, y_test, verbose=1)

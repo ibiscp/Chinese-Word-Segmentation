@@ -1,23 +1,22 @@
 from argparse import ArgumentParser
 from tensorflow.keras.models import load_model
-from preprocess import load_data
+from preprocess import load
 from preprocess import file2BIES
-from hanziconv import HanziConv
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+from preprocess import processX
 import numpy as np
 from score import score
 
 
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument("input_path", help="The path of the input file")
-    parser.add_argument("output_path", help="The path of the output file")
-    parser.add_argument("resources_path", help="The path of the resources needed to load your model")
+    parser.add_argument("input_path", nargs='?', default='../resources/dataset/gold/cityu_test_gold.utf8', help="The path of the input file")
+    parser.add_argument("output_path", nargs='?', default='../resources/dataset/predicted/cityu_test_gold.utf8', help="The path of the output file")
+    parser.add_argument("resources_path", nargs='?', default='../resources/', help="The path of the resources needed to load your model")
 
     return parser.parse_args()
 
 
-def predict(input_path, output_path, resources_path='../resources/'):
+def predict(input_path, output_path, resources_path):
     """
     This is the skeleton of the prediction function.
     The predict function will build your model, load the weights from the checkpoint and write a new file (output_path)
@@ -37,27 +36,16 @@ def predict(input_path, output_path, resources_path='../resources/'):
 
     # model.summary()
 
-    _, dictionary = load_data(path=resources_path)
+    dictionary = load(resources_path + 'dictionary')
     word2id = dictionary['word2id']
     id2label = dictionary['id2label']
 
     X_chinese, y, characters, sizes = file2BIES(input_path)
 
-    # Convert sentences to id
-    X = []
-    for sentence in X_chinese:
-        x = []
-        for char in sentence:
-            try:
-                x.append(word2id[char])
-            except:
-                x.append(word2id["<UNK>"])
-        X.append(x)
+    # Process X
+    X_processed = processX(X_chinese, word2id, sentence_size=630)
 
-    # Padding
-    X = pad_sequences(X, truncating='post', padding='post', maxlen=626)
-
-    y_pred = model.predict(X)
+    y_pred = model.predict(X_processed)
 
     prediction = []
 
@@ -66,7 +54,7 @@ def predict(input_path, output_path, resources_path='../resources/'):
     for i in range(len(arg)):
         sentence = arg[i]
         labels = []
-        num_char = np.count_nonzero(X[i])
+        num_char = np.count_nonzero(X_processed[i])
         for char in sentence[0:num_char]:
             labels.append(id2label[char])
 
@@ -82,8 +70,6 @@ def predict(input_path, output_path, resources_path='../resources/'):
     pass
 
 
-# if __name__ == '__main__':
-#     args = parse_args()
-#     predict(args.input_path, args.output_path, args.resources_path)
-
-# predict(input_path='../resources/dataset/gold/cityu_test_gold.utf8', output_path='../resources/dataset/predicted/cityu_test_gold.utf8')
+if __name__ == '__main__':
+    args = parse_args()
+    predict(args.input_path, args.output_path, args.resources_path)

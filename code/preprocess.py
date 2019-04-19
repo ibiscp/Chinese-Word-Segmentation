@@ -3,11 +3,17 @@ from hanziconv import HanziConv
 import zhon.hanzi
 import re
 from sklearn.model_selection import train_test_split
-import pickle
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
-from sklearn.preprocessing import MultiLabelBinarizer
-import numpy as np
+import pickle
+from argparse import ArgumentParser
+
+def parse_args():
+    parser = ArgumentParser()
+    parser.add_argument("resources_path", nargs='?', default='../resources/', help="The path of the resources needed to load your model")
+    parser.add_argument("sentence_size", nargs='?', const=626, type=int, default=626, help="The size of the maximum sentence")
+
+    return parser.parse_args()
 
 def line2BIES(data):
     encoded = []
@@ -54,47 +60,81 @@ def file2BIES(filename, characters={}):
 # Save dictionary to file
 def save(obj, name):
     with open(name + '.pkl', 'wb') as f:
-        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+        pickle.dump(obj, f)
 
 # Load dictionary from file
 def load(name):
     with open(name + '.pkl', 'rb') as f:
         return pickle.load(f)
 
-# def load_dictionary(path='../resources/', dic='dictionary'):
-#
-#     dic = load(path + dic)
-#
-#     dic['id2word'] = {v: k for k, v in dic['word2id'].items()}
-#     dic['id2label'] = {v: k for k, v in dic['label2id'].items()}
-#
-#     return dic
+def processX(X_chinese, word2id, sentence_size):
+
+    # Convert sentences to id
+    X = []
+    for sentence in X_chinese:
+        x = []
+        for char in sentence:
+            try:
+                x.append(word2id[char])
+            except:
+                x.append(word2id["<UNK>"])
+        X.append(x)
+
+    # print(len(word2id))
+    # print(max(sizes))
+    # print(min(sizes))
+    # print(sum(sizes) / len(sizes))
+
+    # Padding
+    return pad_sequences(X, truncating='post', padding='post', maxlen=sentence_size)
+
+def processY(y, label2id, sentence_size):
+
+    # Convert label to hot encoded
+    y_encoded = []
+    for a in y:
+        temp = []
+        for c in a:
+            temp.append(label2id[c])
+        y_encoded.append(temp)
+
+    y_encoded = pad_sequences(y_encoded, truncating='post', padding='post', maxlen=sentence_size, value=0)
+    return to_categorical(y_encoded)
 
 def load_data(path='../resources/', sentence_size=630):
 
+    dictionaryFound = False
+
     # Check if dictionary exists
-    if glob.glob(path + 'dictionary.pkl') and glob.glob(path + 'dataset.pkl'):
-        print('\nDictionaries found!\n')
+    if glob.glob(path + 'dictionary.pkl'):
+        print('\nDictionary found!')
+        dictionaryFound = True
         dictionary = load(path + 'dictionary')
-        dataset = load(path + 'dataset')
 
+        word2id = dictionary['word2id']
+        id2word = dictionary['id2word']
+        label2id = dictionary['label2id']
+        id2label = dictionary['id2label']
     else:
-        print('\nBuilding dictionary from files')
+        print('\nDictionary not found!')
 
-        files = [f for f in glob.glob(path + 'dataset/train/' + "*.utf8", recursive=True)]
+    print('\nBuilding dataset from files')
 
-        X_chinese = []
-        y = []
-        characters = {}
-        sizes = []
-        # p = re.compile('|'.join(list(zhon.hanzi.punctuation)))
+    files = [f for f in glob.glob(path + 'dataset/train/' + "*.utf8", recursive=True)]
 
-        for filename in files:
-            X_chinese_, y_, characters, sizes_ = file2BIES(filename, characters)
-            X_chinese += X_chinese_
-            y += y_
-            sizes += sizes_
+    X_chinese = []
+    y = []
+    characters = {}
+    sizes = []
+    # p = re.compile('|'.join(list(zhon.hanzi.punctuation)))
 
+    for filename in files:
+        X_chinese_, y_, characters, sizes_ = file2BIES(filename, characters)
+        X_chinese += X_chinese_
+        y += y_
+        sizes += sizes_
+
+    if not dictionaryFound:
         # BIES dictionary
         label2id = {'B': 1, 'I': 2, 'E': 3, 'S': 4}
         id2label = {v:k for k,v in label2id.items()}
@@ -111,45 +151,27 @@ def load_data(path='../resources/', sentence_size=630):
                 index += 1
         id2word = {v:k for k,v in word2id.items()}
 
-        # Convert sentences to id
-        X = []
-        for sentence in X_chinese:
-            x = []
-            for char in sentence:
-                try:
-                    x.append(word2id[char])
-                except:
-                    x.append(word2id["<UNK>"])
-            X.append(x)
+    # Process X and y
+    X_final = processX(X_chinese, word2id, sentence_size)
+    y_final = processY(y, label2id, sentence_size)
 
-        # print(len(word2id))
-        # print(max(sizes))
-        # print(min(sizes))
-        # print(sum(sizes) / len(sizes))
+    # Train test split
+    train_x, dev_x, train_y, dev_y = train_test_split(X_final, y_final, test_size=.2)
 
-        # Padding
-        X = pad_sequences(X, truncating='post', padding='post', maxlen=sentence_size)
+    # Dataset
+    dataset = {'train_x': train_x, 'dev_x': dev_x, 'train_y': train_y, 'dev_y': dev_y, 'sizes': sizes}
 
-        # Convert label to hot encoded
-        y_encoded = []
-        for a in y:
-            temp = []
-            for c in a:
-                temp.append(label2id[c])
-            y_encoded.append(temp)
-
-        y_encoded = pad_sequences(y_encoded, truncating='post', padding='post', maxlen=sentence_size, value=0)
-        y_l = to_categorical(y_encoded)
-
-        # Train test split
-        train_x, dev_x, train_y, dev_y = train_test_split(X, y_l, test_size=.2)
-
-        # Save data
-        dataset = {'train_x': train_x, 'dev_x': dev_x, 'train_y': train_y, 'dev_y': dev_y, 'sizes': sizes}
-        dictionary = {'word2id': word2id, 'id2word': id2word, 'label2id': label2id, 'id2label': id2label, 'vocab_size': len(word2id), 'sentence_size': sentence_size}
-        save(dataset, path + 'dataset')
+    # Save dictionary
+    if not dictionaryFound:
+        dictionary = {'word2id': word2id, 'id2word': id2word, 'label2id': label2id, 'id2label': id2label,
+                      'vocab_size': len(word2id), 'sentence_size': sentence_size}
         save(dictionary, path + 'dictionary')
 
     return dataset, dictionary
 
-# dataset, dictionary = load_data()
+
+if __name__ == '__main__':
+    args = parse_args()
+
+    # Load data
+    _, _ = load_data(path=args.resources_path, sentence_size=args.sentence_size)
