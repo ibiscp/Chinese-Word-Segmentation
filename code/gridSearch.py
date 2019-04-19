@@ -22,7 +22,7 @@ class gridSearch:
             print('\nUsing parameters:', g)
             callback_str = '_'.join(['%s-%s' % (key, str(value)) for (key, value) in g.items()])
             cbk = K.callbacks.TensorBoard("../resources/logging/" + callback_str)
-            model.fit_generator(self.generator(X, y, batch_size=g['batchSize']), steps_per_epoch=1, epochs=g['epochs'], callbacks=[cbk])
+            model.fit_generator(self.generator(X, y, batch_size=g['batchSize']), steps_per_epoch=100, epochs=g['epochs'], callbacks=[cbk])
 
             print('Evaluating')
             loss, acc = model.evaluate(X_test, y_test, verbose=1)
