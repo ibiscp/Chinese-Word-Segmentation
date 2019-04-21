@@ -1,0 +1,10 @@
+Summary
+Best: 0.836700 using {'epochs': 6, 'batchSize': 64, 'mergeMode': 'concat'}
+Loss: 0.554670 - Accuracy: 0.783046 - Parameters: {'epochs': 3, 'batchSize': 32, 'mergeMode': 'concat'}
+Loss: 0.561726 - Accuracy: 0.782958 - Parameters: {'epochs': 3, 'batchSize': 32, 'mergeMode': 'sum'}
+Loss: 0.482655 - Accuracy: 0.817824 - Parameters: {'epochs': 6, 'batchSize': 32, 'mergeMode': 'concat'}
+Loss: 0.467401 - Accuracy: 0.822724 - Parameters: {'epochs': 6, 'batchSize': 32, 'mergeMode': 'sum'}
+Loss: 0.516404 - Accuracy: 0.805373 - Parameters: {'epochs': 3, 'batchSize': 64, 'mergeMode': 'concat'}
+Loss: 0.522643 - Accuracy: 0.800729 - Parameters: {'epochs': 3, 'batchSize': 64, 'mergeMode': 'sum'}
+Loss: 0.447033 - Accuracy: 0.836700 - Parameters: {'epochs': 6, 'batchSize': 64, 'mergeMode': 'concat'}
+Loss: 0.482038 - Accuracy: 0.829405 - Parameters: {'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
