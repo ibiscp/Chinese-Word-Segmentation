@@ -17,16 +17,16 @@ class gridSearch:
     def fit(self, X, y, X_test, y_test):
 
         for g in ParameterGrid(self.param_grid):
-            model = self.build_fn(vocab_size=self.vocab_size, sentence_size=self.sentence_size, mergeMode=g['mergeMode'])
+            model = self.build_fn(vocab_size=self.vocab_size, sentence_size=self.sentence_size, mergeMode=g['mergeMode'], lstmLayers=g['lstmLayers'])
 
             print('\nUsing parameters:', g)
             callback_str = '_'.join(['%s-%s' % (key, str(value)) for (key, value) in g.items()])
             cbk = K.callbacks.TensorBoard("../resources/logging/" + callback_str)
-            model.fit_generator(self.generator(X, y, batch_size=g['batchSize']), steps_per_epoch=100, epochs=g['epochs'], callbacks=[cbk])
+            model.fit_generator(self.generator(X, y, batch_size=g['batchSize']), steps_per_epoch=100, validation_data=(X_test, y_test), epochs=g['epochs'], callbacks=[cbk])
 
-            print('Evaluating')
-            loss, acc = model.evaluate(X_test, y_test, verbose=1)
-            print('Loss: %f - Accuracy: %f' % (loss, acc))
+            # print('Evaluating')
+            # loss, acc = model.evaluate(X_test, y_test, verbose=1)
+            # print('Loss: %f - Accuracy: %f' % (loss, acc))
 
             self.results.append({'loss':loss, 'acc':acc, 'params':g})
 

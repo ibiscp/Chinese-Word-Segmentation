@@ -16,7 +16,7 @@ def parse_args():
 
     return parser.parse_args()
 
-def keras_model(vocab_size=1000, sentence_size=100, embedding_size=64, hidden_size=256, lstmLayers=2, mergeMode='concat'):
+def keras_model(vocab_size, sentence_size, mergeMode, lstmLayers, embedding_size=64, hidden_size=256, dropout=0.2, recurrent_dropout=0.2):
 
     model = K.models.Sequential()
 
@@ -27,7 +27,7 @@ def keras_model(vocab_size=1000, sentence_size=100, embedding_size=64, hidden_si
     for i in range(lstmLayers):
         model.add(
             K.layers.Bidirectional(K.layers.LSTM(
-                hidden_size, dropout=0.2, recurrent_dropout=0.2, return_sequences=True), merge_mode=mergeMode))
+                hidden_size, dropout=dropout, recurrent_dropout=recurrent_dropout, return_sequences=True), merge_mode=mergeMode))
 
     # Dense layer
     model.add(K.layers.Dense(5, activation='softmax'))
@@ -56,10 +56,11 @@ if __name__ == '__main__':
     print('Sentence size:', sentenceSize)
 
     # Define the grid search parameters
-    batchSize = [32, 64]
-    epochs = [3, 6]
-    mergeMode = ['concat', 'sum']
-    param_grid = dict(batchSize=batchSize, epochs=epochs, mergeMode=mergeMode)
+    batchSize = [64, 128]
+    epochs = [6, 10]
+    mergeMode = ['sum']
+    lstmLayers = [2, 3]
+    param_grid = dict(batchSize=batchSize, epochs=epochs, mergeMode=mergeMode, lstmLayers=lstmLayers)
 
     # Train
     grid = gridSearch(build_fn=keras_model, param_grid=param_grid, vocab_size=vocabulary_size, sentence_size=sentenceSize)
