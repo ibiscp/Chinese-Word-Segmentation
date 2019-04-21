@@ -43,7 +43,7 @@ def predict(input_path, output_path, resources_path):
     X_chinese, y, characters, sizes = file2BIES(input_path)
 
     # Process X
-    X_processed = processX(X_chinese, word2id, sentence_size=630)
+    X_processed = processX(X_chinese, word2id, sentence_size=626)
 
     y_pred = model.predict(X_processed)
 
