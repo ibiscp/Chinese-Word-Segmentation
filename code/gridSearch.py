@@ -8,7 +8,7 @@ class gridSearch:
     def __init__(self, build_fn, param_grid, vocab_size, sentence_size):
         self.build_fn = build_fn
         self.param_grid = param_grid
-        self.best_score = 0
+        self.best_score = 0.8517
         self.best_params = None
         self.results = []
         self.vocab_size = vocab_size
@@ -30,6 +30,11 @@ class gridSearch:
 
             self.results.append({'loss':loss, 'acc':acc, 'params':g})
 
+            # Write to results
+            with open('../resources/results.txt', "a+") as f:
+                for res in self.results:
+                    f.write("Loss: %f - Accuracy: %f - Parameters: %r\n" % (res['loss'], res['acc'], res['params']))
+
             if acc > self.best_score:
                 self.best_score = acc
                 self.best_params = g
@@ -38,13 +43,22 @@ class gridSearch:
                 print("Saving model")
                 model.save("../resources/model.h5")
 
+                # Substitute
+                with open("../resources/results.txt") as f:
+                    lines = f.readlines()
+
+                lines[0] = "Best: " + self.best_score + " using " + self.best_params
+
+                with open("../resources/results.txt", "w+") as f:
+                    f.writelines(lines)
+
     def generator(self, features, labels, batch_size):
         batch_features = np.zeros((batch_size, self.sentence_size))
         batch_labels = np.zeros((batch_size, self.sentence_size, 5))
         while True:
             for i in range(batch_size):
                 # choose random index in features
-                index = random.randint(0,len(features)-1)
+                index = random.randint(0, len(features)-1)
                 batch_features[i] = features[index]
                 batch_labels[i] = labels[index]
             yield batch_features, batch_labels
@@ -56,9 +70,3 @@ class gridSearch:
         print("Best: %f using %s" % (self.best_score, self.best_params))
         for res in self.results:
             print("Loss: %f - Accuracy: %f - Parameters: %r" % (res['loss'], res['acc'], res['params']))
-
-        with open('../resources/results.txt', "a+") as f:
-            f.write('Summary\n')
-            f.write("Best: %f using %s\n" % (self.best_score, self.best_params))
-            for res in self.results:
-                f.write("Loss: %f - Accuracy: %f - Parameters: %r\n" % (res['loss'], res['acc'], res['params']))

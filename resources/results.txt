@@ -1,10 +1,15 @@
-Summary
-Best: 0.836700 using {'epochs': 6, 'batchSize': 64, 'mergeMode': 'concat'}
-Loss: 0.554670 - Accuracy: 0.783046 - Parameters: {'epochs': 3, 'batchSize': 32, 'mergeMode': 'concat'}
-Loss: 0.561726 - Accuracy: 0.782958 - Parameters: {'epochs': 3, 'batchSize': 32, 'mergeMode': 'sum'}
-Loss: 0.482655 - Accuracy: 0.817824 - Parameters: {'epochs': 6, 'batchSize': 32, 'mergeMode': 'concat'}
-Loss: 0.467401 - Accuracy: 0.822724 - Parameters: {'epochs': 6, 'batchSize': 32, 'mergeMode': 'sum'}
-Loss: 0.516404 - Accuracy: 0.805373 - Parameters: {'epochs': 3, 'batchSize': 64, 'mergeMode': 'concat'}
-Loss: 0.522643 - Accuracy: 0.800729 - Parameters: {'epochs': 3, 'batchSize': 64, 'mergeMode': 'sum'}
-Loss: 0.447033 - Accuracy: 0.836700 - Parameters: {'epochs': 6, 'batchSize': 64, 'mergeMode': 'concat'}
-Loss: 0.482038 - Accuracy: 0.829405 - Parameters: {'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
+Best: 0.8517 using {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
+Loss: 0.5546 - Accuracy: 0.7830 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 32, 'mergeMode': 'concat'}
+Loss: 0.5617 - Accuracy: 0.7829 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 32, 'mergeMode': 'sum'}
+Loss: 0.4826 - Accuracy: 0.8178 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 32, 'mergeMode': 'concat'}
+Loss: 0.4674 - Accuracy: 0.8227 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 32, 'mergeMode': 'sum'}
+Loss: 0.5164 - Accuracy: 0.8053 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 64, 'mergeMode': 'concat'}
+Loss: 0.5226 - Accuracy: 0.8007 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 64, 'mergeMode': 'sum'}
+Loss: 0.4470 - Accuracy: 0.8367 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'concat'}
+Loss: 0.4820 - Accuracy: 0.8294 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
+Loss: 0.4822 - Accuracy: 0.8407 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 128, 'mergeMode': 'sum'}
+Loss: 0.4479 - Accuracy: 0.8350 - Parameters: {'lstmLayers': 2, 'epochs': 10, 'batchSize': 64, 'mergeMode': 'sum'}
+Loss: 0.5233 - Accuracy: 0.7996 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
+Loss: 0.4525 - Accuracy: 0.8425 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 128, 'mergeMode': 'sum'}
+Loss: 0.4285 - Accuracy: 0.8462 - Parameters: {'lstmLayers': 3, 'epochs': 10, 'batchSize': 64, 'mergeMode': 'sum'}
+Loss: 0.4283 - Accuracy: 0.8517 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}

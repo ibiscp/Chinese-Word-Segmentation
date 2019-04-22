@@ -57,9 +57,9 @@ if __name__ == '__main__':
 
     # Define the grid search parameters
     batchSize = [64]
-    epochs = [10]
+    epochs = [6]
     mergeMode = ['sum']
-    lstmLayers = [2]
+    lstmLayers = [3]
     embedding_size = [16, 32]
     param_grid = dict(batchSize=batchSize, epochs=epochs, mergeMode=mergeMode, lstmLayers=lstmLayers, embedding_size=embedding_size)
 
