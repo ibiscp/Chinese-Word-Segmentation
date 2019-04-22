@@ -5,8 +5,8 @@ ALL_TAGS = {"B", "I", "E", "S"}
 
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument("prediction_file", help="The path to the prediction file (in BIES format)")
-    parser.add_argument("gold_file", help="The path to the gold file (in BIES format)")
+    parser.add_argument("prediction_file", nargs='?', default='../resources/dataset/predicted/cityu_test_gold_prediction.txt', help="The path to the prediction file (in BIES format)")
+    parser.add_argument("gold_file", nargs='?', default='../resources/dataset/predicted/cityu_test_gold.txt', help="The path to the gold file (in BIES format)")
 
     return parser.parse_args()
 

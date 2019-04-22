@@ -5,12 +5,13 @@ from preprocess import file2BIES
 from preprocess import processX
 import numpy as np
 from score import score
+import os
 
 
 def parse_args():
     parser = ArgumentParser()
     parser.add_argument("input_path", nargs='?', default='../resources/dataset/gold/cityu_test_gold.utf8', help="The path of the input file")
-    parser.add_argument("output_path", nargs='?', default='../resources/dataset/predicted/cityu_test_gold.utf8', help="The path of the output file")
+    parser.add_argument("output_path", nargs='?', default='../resources/dataset/predicted/cityu_test_gold.txt', help="The path of the output file")
     parser.add_argument("resources_path", nargs='?', default='../resources/', help="The path of the resources needed to load your model")
 
     return parser.parse_args()
@@ -62,8 +63,16 @@ def predict(input_path, output_path, resources_path):
 
     score(prediction, y, verbose=True)
 
-    with open(output_path, "w+") as f:
+    # Write prediction file
+    filename, extension = os.path.splitext(output_path)
+    with open(filename + '_prediction' + extension, "w+") as f:
         for line in prediction:
+            f.write(''.join(str(e) for e in line))
+            f.write('\n')
+
+    # Write gold file
+    with open(output_path, "w+") as f:
+        for line in y:
             f.write(''.join(str(e) for e in line))
             f.write('\n')
 

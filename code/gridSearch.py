@@ -8,7 +8,7 @@ class gridSearch:
     def __init__(self, build_fn, param_grid, vocab_size, sentence_size):
         self.build_fn = build_fn
         self.param_grid = param_grid
-        self.best_score = 0.836700
+        self.best_score = 0
         self.best_params = None
         self.results = []
         self.vocab_size = vocab_size
@@ -17,7 +17,7 @@ class gridSearch:
     def fit(self, X, y, X_test, y_test):
 
         for g in ParameterGrid(self.param_grid):
-            model = self.build_fn(vocab_size=self.vocab_size, sentence_size=self.sentence_size, mergeMode=g['mergeMode'], lstmLayers=g['lstmLayers'])
+            model = self.build_fn(vocab_size=self.vocab_size, sentence_size=self.sentence_size, mergeMode=g['mergeMode'], lstmLayers=g['lstmLayers'], embedding_size=g['embedding_size'])
 
             print('\nUsing parameters:', g)
             callback_str = '_'.join(['%s-%s' % (key, str(value)) for (key, value) in g.items()])

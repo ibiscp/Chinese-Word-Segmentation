@@ -1,22 +1,26 @@
-# NLP Homework 1
+# Chinese Word Segmentation
 
-## Submission skeleton
-```
-- code
-  |__ predict.py # Use the skeleton provided in predict.py as entry point to your code
-  |__ score.py # The word segmentation scorer. DO NOT MODIFY IT
-- sample_files
-  |__ sample_icwb2.utf8 # how a file from the icwb2 dataset looks like
-  |__ sample_lines.txt  # how the file we will use for prediction will look like. This is the format score.py accepts.
-  |__ sample_labels.txt # the correct BIES tags for sample_lines.txt. This is the format score.py accepts.
-- resources 	# any additional resource that predict.py should use must be placed in here
-- README.md # this file
-- Homework_1_nlp.pdf # the slides presenting this homework
-- report.pdf	# your report
-```
+The goal of this project is to train a model based on Bidirectional LSTM to separate chinese words in a sentence.
+
+The dataset used for the training was the concatenation of four different datasets: AS (Traditional Chinese), CITYU (Traditional Chinese), MSR (Simplified Chinese) and PKU (Simplified Chinese).
+
+The training was done using a Google Compute Engine instance running a Tesla K80 GPU.
 
 ## Instructions
-Place all your code in the `code` folder. You can create other files.
-Place any additional resources needed for running `predict.py` (such as the weights of your trained model) in the `resources` folder.
-Place your report as `report.pdf` in the root folder.
-Follow the slides for any additional information.
+
+* Generate dictionary
+
+`python preprocess.py [resources_path] [sentence_size]`
+
+
+* Train
+
+`python train.py [resources_path] [sentence_size]`
+
+* Predict
+
+`python train.py [input_path] [output_path] [resources_path]`
+
+* Score
+
+`python train.py [prediction_file] [gold_file]`

@@ -16,7 +16,7 @@ def parse_args():
 
     return parser.parse_args()
 
-def keras_model(vocab_size, sentence_size, mergeMode, lstmLayers, embedding_size=64, hidden_size=256, dropout=0.2, recurrent_dropout=0.2):
+def keras_model(vocab_size, sentence_size, mergeMode, lstmLayers, embedding_size, hidden_size=256, dropout=0.2, recurrent_dropout=0.2):
 
     model = K.models.Sequential()
 
@@ -56,11 +56,12 @@ if __name__ == '__main__':
     print('Sentence size:', sentenceSize)
 
     # Define the grid search parameters
-    batchSize = [64, 128]
-    epochs = [6, 10]
+    batchSize = [64]
+    epochs = [10]
     mergeMode = ['sum']
-    lstmLayers = [2, 3]
-    param_grid = dict(batchSize=batchSize, epochs=epochs, mergeMode=mergeMode, lstmLayers=lstmLayers)
+    lstmLayers = [2]
+    embedding_size = [16, 32]
+    param_grid = dict(batchSize=batchSize, epochs=epochs, mergeMode=mergeMode, lstmLayers=lstmLayers, embedding_size=embedding_size)
 
     # Train
     grid = gridSearch(build_fn=keras_model, param_grid=param_grid, vocab_size=vocabulary_size, sentence_size=sentenceSize)
