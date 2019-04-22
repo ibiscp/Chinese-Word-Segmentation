@@ -12,4 +12,4 @@ Loss: 0.4479 - Accuracy: 0.8350 - Parameters: {'lstmLayers': 2, 'epochs': 10, 'b
 Loss: 0.5233 - Accuracy: 0.7996 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
 Loss: 0.4525 - Accuracy: 0.8425 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 128, 'mergeMode': 'sum'}
 Loss: 0.4285 - Accuracy: 0.8462 - Parameters: {'lstmLayers': 3, 'epochs': 10, 'batchSize': 64, 'mergeMode': 'sum'}
-Loss: 0.4283 - Accuracy: 0.8517 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
+Loss: 0.4283 - Accuracy: 0.8517 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}Loss: 0.511744 - Accuracy: 0.810438 - Parameters: {'batchSize': 64, 'epochs': 6, 'lstmLayers': 3, 'embedding_size': 16, 'mergeMode': 'sum'}
