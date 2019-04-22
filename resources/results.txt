@@ -1,17 +1,17 @@
-Best: 0.8517 using {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
-Loss: 0.5546 - Accuracy: 0.7830 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 32, 'mergeMode': 'concat'}
-Loss: 0.5617 - Accuracy: 0.7829 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 32, 'mergeMode': 'sum'}
-Loss: 0.4826 - Accuracy: 0.8178 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 32, 'mergeMode': 'concat'}
-Loss: 0.4674 - Accuracy: 0.8227 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 32, 'mergeMode': 'sum'}
-Loss: 0.5164 - Accuracy: 0.8053 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 64, 'mergeMode': 'concat'}
-Loss: 0.5226 - Accuracy: 0.8007 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 64, 'mergeMode': 'sum'}
-Loss: 0.4470 - Accuracy: 0.8367 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'concat'}
-Loss: 0.4820 - Accuracy: 0.8294 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
-Loss: 0.4822 - Accuracy: 0.8407 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 128, 'mergeMode': 'sum'}
-Loss: 0.4479 - Accuracy: 0.8350 - Parameters: {'lstmLayers': 2, 'epochs': 10, 'batchSize': 64, 'mergeMode': 'sum'}
-Loss: 0.5233 - Accuracy: 0.7996 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}
-Loss: 0.4525 - Accuracy: 0.8425 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 128, 'mergeMode': 'sum'}
-Loss: 0.4285 - Accuracy: 0.8462 - Parameters: {'lstmLayers': 3, 'epochs': 10, 'batchSize': 64, 'mergeMode': 'sum'}
-Loss: 0.4283 - Accuracy: 0.8517 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum'}Loss: 0.511744 - Accuracy: 0.810438 - Parameters: {'batchSize': 64, 'epochs': 6, 'lstmLayers': 3, 'embedding_size': 16, 'mergeMode': 'sum'}
-Loss: 0.511744 - Accuracy: 0.810438 - Parameters: {'batchSize': 64, 'epochs': 6, 'lstmLayers': 3, 'embedding_size': 16, 'mergeMode': 'sum'}
-Loss: 0.487403 - Accuracy: 0.825834 - Parameters: {'batchSize': 64, 'epochs': 6, 'lstmLayers': 3, 'embedding_size': 32, 'mergeMode': 'sum'}
+Best: 0.8517 using {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.5546 - Accuracy: 0.7830 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 32, 'mergeMode': 'concat', 'embedding_size': 64}
+Loss: 0.5617 - Accuracy: 0.7829 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 32, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.4826 - Accuracy: 0.8178 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 32, 'mergeMode': 'concat', 'embedding_size': 64}
+Loss: 0.4674 - Accuracy: 0.8227 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 32, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.5164 - Accuracy: 0.8053 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 64, 'mergeMode': 'concat', 'embedding_size': 64}
+Loss: 0.5226 - Accuracy: 0.8007 - Parameters: {'lstmLayers': 2, 'epochs': 3, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.4470 - Accuracy: 0.8367 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'concat', 'embedding_size': 64}
+Loss: 0.4820 - Accuracy: 0.8294 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.4822 - Accuracy: 0.8407 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 128, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.4479 - Accuracy: 0.8350 - Parameters: {'lstmLayers': 2, 'epochs': 10, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.5233 - Accuracy: 0.7996 - Parameters: {'lstmLayers': 2, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.4525 - Accuracy: 0.8425 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 128, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.4285 - Accuracy: 0.8462 - Parameters: {'lstmLayers': 3, 'epochs': 9, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.4283 - Accuracy: 0.8517 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 64}
+Loss: 0.5117 - Accuracy: 0.8104 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 16}
+Loss: 0.4874 - Accuracy: 0.8258 - Parameters: {'lstmLayers': 3, 'epochs': 6, 'batchSize': 64, 'mergeMode': 'sum', 'embedding_size': 32}
