@@ -32,8 +32,7 @@ class gridSearch:
 
             # Write to results
             with open('../resources/results.txt', "a+") as f:
-                for res in self.results:
-                    f.write("Loss: %f - Accuracy: %f - Parameters: %r\n" % (res['loss'], res['acc'], res['params']))
+                f.write("Loss: %f - Accuracy: %f - Parameters: %r\n" % (loss, acc, g))
 
             if acc > self.best_score:
                 self.best_score = acc
